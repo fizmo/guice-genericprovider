@@ -1,0 +1,20 @@
+GenericProvider: A package for creating generic provider classes.
+
+public class MyGenericProvider implements GenericProvider
+{
+    public <T> T get(Class<T> cls)
+    {
+        // Generate a T from the class object, e.g.:
+        return cls.newInstance();
+    }
+}
+
+public class GenericProviderModule extends AbstractModule
+{
+    public void configure()
+    {
+        install(GenericProviderModuleBuilder.bind(Foo.class)
+                                            .toProvider(MyGenericProvider.class));
+    }
+}
+
